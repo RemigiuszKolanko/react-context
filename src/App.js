@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import "./App.css";
+import { Menu } from "./Menu/Menu";
+import { Content } from "./Content/Content";
+import AuthContext from "./context/auth-context";
+
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const handleClick = () => {
+    setIsAuthenticated(!isAuthenticated);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AuthContext.Provider
+        value={{ authenticated: isAuthenticated, login: handleClick }}
+      >
+        <Menu />
+        <Content />
+      </AuthContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
